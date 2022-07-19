@@ -6,7 +6,6 @@ import { signUpFormValidation } from "../../utils/signupformvalidation";
 export default function Model(props) {
   const [show, setShow] = useState(true);
   const [error, setError] = useState({});
-  const [butDis, setButDis] = useState(false);
   const [inputVal, setInputVal] = useState({
     name: props.name,
     email: props.email,
@@ -23,11 +22,12 @@ export default function Model(props) {
     const { name, value } = event.target;
     setInputVal({ ...inputVal, [name]: value });
     setError(signUpFormValidation(event.target.name, event.target.value));
-    if (Object.keys(error).length !== 0 || inputVal.name === "" || inputVal.email === "" || inputVal.website === "" || inputVal.phone === "") {
-        setButDis(true);
-      } else {
-        setButDis(false);
-      }  
+    // if (inputVal.name === "" || inputVal.email === "" || inputVal.website === "" || inputVal.phone === "" || Object.keys(error).length !== 0 ) {
+        
+    //     setButDis(true);
+    //   } else {
+    //     setButDis(false);
+    //   }  
 };
 
   const handleSave = () => {
@@ -113,7 +113,7 @@ export default function Model(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSave} disabled={butDis}>
+          <Button variant="primary" onClick={handleSave} disabled={(inputVal.name === "" || inputVal.email === "" || inputVal.website === "" || inputVal.phone === "" || Object.keys(error).length !== 0) ? true : false}>
             Save Changes
           </Button>
         </Modal.Footer>
